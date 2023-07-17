@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <h1 class="header">Notes App</h1>
-    <NoteItem />
+    <list-notes v-bind:notes="notes"></list-notes>
   </div>
 </template>
 
 <script>
-import NoteItem from "./components/Note.vue";
+import ListNotes from "./components/ListNotes.vue";
 
 export default {
   name: "App",
   components: {
-    NoteItem,
+    ListNotes,
   },
 };
 </script>

@@ -1,6 +1,7 @@
 <template>
-  <div class="hello">
-    <p>Grocericies</p>
+  <div class="note">
+    <!-- <p>{{ note.title }}</p> -->
+    <p class="title">Lunch at 12PM</p>
     <p>Milk, Coffee, cookies</p>
     <p>17/07/2023</p>
   </div>
@@ -8,26 +9,34 @@
 
 <script>
 export default {
-  name: "NoteItem",
-  props: {
-    msg: String,
-  },
+  name: "Note",
+  props: ["note"],
 };
+console.log();
 </script>
 
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.note {
+  border: 1px solid #6fa8dc;
+  border-radius: 8px;
+  margin: 1rem 0;
+  width: 100%;
+  padding: 0.75rem;
+  text-align: left;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.note:hover {
+  background: #6fa8dc;
+  cursor: pointer;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.title {
+  font-weight: 600;
 }
-a {
-  color: #42b983;
+@media (max-width: 768px) {
+  .note {
+    width: auto;
+    margin: 0.5rem 0;
+  }
 }
 </style>
