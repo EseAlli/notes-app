@@ -23,6 +23,28 @@ export default {
   data() {
     return {
       showModal: false,
+      notes: [
+        {
+          id: 1,
+          title: "Lunch at 12PM",
+          description: "Call Robert to remember him.",
+        },
+        {
+          id: 2,
+          title: "Gym with Jane",
+          description: "She is needing your motivation...",
+        },
+        {
+          id: 3,
+          title: "Call mom",
+          description: "Ask her about the cats?",
+        },
+        {
+          id: 4,
+          title: "Call mom",
+          description: "Ask her about the cats?",
+        },
+      ],
     };
   },
 };
@@ -35,6 +57,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin-top: 20px;
 }
+
+button {
+  border: none;
+  background: transparent;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
 .container {
   max-width: 90%;
   margin: 0 auto;
