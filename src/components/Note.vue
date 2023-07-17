@@ -1,9 +1,9 @@
 <template>
   <div class="note">
-    <p class="title">{{ note.title }}</p>
-    <p>{{ note.description }}</p>
+    <p class="title" @click="showContentModal = true">{{ note.title }}</p>
+    <p>{{ truncate(note.description) }}</p>
     <div class="flex justify-end flex-col items-end note-footer">
-      <p class="date">{{ formatDate(note.date_created) }}</p>
+      <p class="date">{{ formatDate(note.date_updated) }}</p>
       <div class="flex gap-2">
         <PencilIcon class="action-btn" @click="showModal = true" />
         <TrashIcon class="action-btn" @click="showDeleteModal = true" />
@@ -27,6 +27,16 @@
             <button v-on:click="deleteNote(note.id)">Yes</button>
             <button @click="showDeleteModal = false">No</button>
           </div>
+        </template>
+      </modal>
+    </Teleport>
+    <Teleport to="body">
+      <modal :show="showContentModal" @close="showContentModal = false">
+        <template #header>
+          <h3>{{ note.title }}</h3>
+        </template>
+        <template #body>
+          {{ note.description }}
         </template>
       </modal>
     </Teleport>
@@ -55,6 +65,7 @@ export default {
     return {
       showModal: false,
       showDeleteModal: false,
+      showContentModal: false,
     };
   },
   methods: {
@@ -72,6 +83,9 @@ export default {
       if (day.length < 2) day = "0" + day;
 
       return [year, month, day].join("-");
+    },
+    truncate(input) {
+      return input.length > 5 ? `${input.substring(0, 30)}...` : input;
     },
     edit(note) {
       this.$emit("editNote", note);
