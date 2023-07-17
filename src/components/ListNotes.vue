@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <div class="notes">
-      <note v-for="note in notes" v-bind:key="note.id"></note>
+      <note
+        v-for="note in sortedNotes"
+        :key="note.id"
+        v-on:delete-note="deleteNote"
+        :note="note"
+      ></note>
     </div>
   </div>
 </template>
@@ -12,6 +17,19 @@ export default {
   props: ["notes"],
   components: {
     Note,
+  },
+  computed: {
+    sortedNotes() {
+      return this.notes.slice().sort((a, b) => a.date_updated - b.date_updated);
+    },
+  },
+  methods: {
+    deleteNote(note) {
+      console.log(note, "note to delete");
+    },
+    console(notes) {
+      console.log(notes);
+    },
   },
 };
 </script>

@@ -1,13 +1,15 @@
 <template>
   <div class="note">
-    <!-- <p>{{ note.title }}</p> -->
-    <p class="title">Lunch at 12PM</p>
-    <p>Milk, Coffee, cookies</p>
-    <p>17/07/2023</p>
-    <div class="flex gap-2">
-      <p class="edit-btn" @click="showModal = true">Edit</p>
-      <p class="delete-btn" @click="showDeleteModal = true">Delete</p>
+    <p class="title">{{ note.title }}</p>
+    <p>{{ note.description }}</p>
+    <div class="flex justify-end flex-col items-end note-footer">
+      <p class="date">{{ formatDate(note.date_created) }}</p>
+      <div class="flex gap-2">
+        <p class="edit-btn" @click="showModal = true">Edit</p>
+        <p class="delete-btn" @click="showDeleteModal = true">Delete</p>
+      </div>
     </div>
+
     <edit-note
       :show="showModal"
       @close="showModal = false"
@@ -20,7 +22,7 @@
         </template>
         <template #body>
           <div>
-            <button>Yes</button>
+            <button v-on:click="deleteNote(note.id)">Yes</button>
             <button @click="showDeleteModal = false">No</button>
           </div>
         </template>
@@ -34,7 +36,11 @@ import EditNote from "./NoteForm";
 import Modal from "./Modal";
 export default {
   name: "Note",
-  props: ["note"],
+  props: {
+    note: {
+      type: Object,
+    },
+  },
   components: {
     EditNote,
     Modal,
@@ -44,6 +50,23 @@ export default {
       showModal: false,
       showDeleteModal: false,
     };
+  },
+  methods: {
+    deleteNote(note) {
+      console.log(note);
+      this.$emit("delete-note", note);
+    },
+    formatDate(date) {
+      var d = new Date(date),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
+        year = d.getFullYear();
+
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
+
+      return [year, month, day].join("-");
+    },
   },
 };
 </script>
@@ -56,6 +79,19 @@ export default {
   width: 100%;
   padding: 0.75rem;
   text-align: left;
+}
+
+.note > p {
+  margin: 0.25rem 0;
+}
+
+.note-footer {
+  margin-top: 0.675rem;
+}
+
+.date {
+  color: gray;
+  font-size: 0.75rem;
 }
 
 .title:hover {

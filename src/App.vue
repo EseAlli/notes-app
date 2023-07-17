@@ -4,7 +4,11 @@
     <div class="flex justify-end">
       <button id="show-modal" @click="showModal = true">+ Add Note</button>
     </div>
-    <create-note :show="showModal" @close="showModal = false"></create-note>
+    <create-note
+      v-on:create-note="createNote"
+      :show="showModal"
+      @close="showModal = false"
+    ></create-note>
     <list-notes v-bind:notes="notes"></list-notes>
   </div>
 </template>
@@ -27,29 +31,47 @@ export default {
           id: 1,
           title: "Lunch at 12PM",
           description: "Call Robert to remember him.",
+          date_created: new Date(),
+          date_updated: new Date(),
         },
         {
           id: 2,
           title: "Gym with Jane",
           description: "She is needing your motivation...",
+          date_created: new Date(),
+          date_updated: new Date(),
         },
         {
           id: 3,
           title: "Call mom",
           description: "Ask her about the cats?",
+          date_created: new Date(),
+          date_updated: new Date(),
         },
         {
           id: 4,
           title: "Call mom",
           description: "Ask her about the cats?",
+          date_created: new Date(),
+          date_updated: new Date(),
         },
       ],
     };
+  },
+  methods: {
+    createNote(note) {
+      this.notes.push(note);
+      alert("Note created!");
+    },
   },
 };
 </script>
 
 <style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
 body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -86,5 +108,13 @@ button:hover {
 
 .gap-2 {
   gap: 0.5rem;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-end {
+  align-items: flex-end;
 }
 </style>
