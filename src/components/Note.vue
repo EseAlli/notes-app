@@ -5,8 +5,8 @@
     <p>Milk, Coffee, cookies</p>
     <p>17/07/2023</p>
     <div class="flex gap-2">
-      <p class="edit-btn" id="show-modal" @click="showModal = true">Edit</p>
-      <p @click="showDeleteModal = true">Delete</p>
+      <p class="edit-btn" @click="showModal = true">Edit</p>
+      <p class="delete-btn" @click="showDeleteModal = true">Delete</p>
     </div>
     <edit-note
       :show="showModal"
@@ -67,7 +67,8 @@ export default {
   font-weight: 600;
 }
 
-.edit-btn:hover {
+.edit-btn:hover,
+.delete-btn:hover {
   cursor: pointer;
 }
 

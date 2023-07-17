@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <h1 class="header">Notes App</h1>
-    <div>
-      <button id="show-modal" @click="showModal = true">Add Note</button>
+    <div class="flex justify-end">
+      <button id="show-modal" @click="showModal = true">+ Add Note</button>
     </div>
     <create-note :show="showModal" @close="showModal = false"></create-note>
     <list-notes v-bind:notes="notes"></list-notes>
@@ -78,6 +78,10 @@ button:hover {
 
 .flex {
   display: flex;
+}
+
+.justify-end {
+  justify-content: end;
 }
 
 .gap-2 {
