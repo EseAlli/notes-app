@@ -54,7 +54,7 @@ export default {
   display: flex !important ;
   justify-content: space-between;
   gap: 1rem;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
 }
 @media (max-width: 768px) {
   .notes {

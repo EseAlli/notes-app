@@ -84,6 +84,7 @@ export default {
   width: 100%;
   padding: 0.75rem;
   text-align: left;
+  max-width: 300px;
 }
 
 .note > p {
