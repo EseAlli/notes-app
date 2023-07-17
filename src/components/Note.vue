@@ -55,8 +55,8 @@ export default {
   },
   methods: {
     deleteNote(note) {
-      console.log(note);
       this.$emit("delete-note", note);
+      this.$emit("close");
     },
     formatDate(date) {
       var d = new Date(date),

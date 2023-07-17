@@ -26,10 +26,11 @@ export default {
   },
   methods: {
     deleteNote(note) {
-      console.log(note, "note to delete");
+      const noteIndex = this.notes.indexOf(note);
+      this.notes.splice(noteIndex, 1);
+      alert("Note deleted!");
     },
     editNote(updatedNote) {
-      console.log("updated", updatedNote.id, this.notes);
       const noteIndex = this.notes.findIndex(
         (note) => note.id === updatedNote.id
       );
@@ -37,9 +38,6 @@ export default {
         this.notes.splice(noteIndex, 1, updatedNote);
         alert("Note updated!");
       }
-    },
-    console(notes) {
-      console.log(notes);
     },
   },
 };
