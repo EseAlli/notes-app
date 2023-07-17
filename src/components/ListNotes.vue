@@ -6,6 +6,7 @@
         :key="note.id"
         v-on:delete-note="deleteNote"
         :note="note"
+        v-on:editNote="editNote"
       ></note>
     </div>
   </div>
@@ -26,6 +27,16 @@ export default {
   methods: {
     deleteNote(note) {
       console.log(note, "note to delete");
+    },
+    editNote(updatedNote) {
+      console.log("updated", updatedNote.id, this.notes);
+      const noteIndex = this.notes.findIndex(
+        (note) => note.id === updatedNote.id
+      );
+      if (noteIndex !== -1) {
+        this.notes.splice(noteIndex, 1, updatedNote);
+        alert("Note updated!");
+      }
     },
     console(notes) {
       console.log(notes);

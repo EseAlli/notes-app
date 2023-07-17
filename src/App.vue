@@ -8,6 +8,7 @@
       v-on:create-note="createNote"
       :show="showModal"
       @close="showModal = false"
+      :edit="false"
     ></create-note>
     <list-notes v-bind:notes="notes"></list-notes>
   </div>

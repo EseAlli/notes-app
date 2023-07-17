@@ -7,16 +7,28 @@
         </template>
         <template #body>
           <div>
-            <input placeholder="Title" v-model="title" />
+            <input
+              placeholder="Title"
+              :value="edit ? note.title : title"
+              @input="
+                edit
+                  ? (note.title = $event.target.value)
+                  : (title = $event.target.value)
+              "
+            />
             <textarea
-              name=""
-              id=""
               rows="10"
               placeholder="Start typing"
-              v-model="description"
+              :value="edit ? note.description : description"
+              @input="
+                edit
+                  ? (note.description = $event.target.value)
+                  : (description = $event.target.value)
+              "
             ></textarea>
+
             <p class="characters">Characters</p>
-            <button @click="createNote">Submit</button>
+            <button v-on:click="submitNote()">Submit</button>
           </div>
         </template>
       </modal>
@@ -30,6 +42,7 @@ export default {
   props: {
     show: Boolean,
     note: {},
+    edit: Boolean,
   },
   components: {
     Modal,
@@ -43,8 +56,8 @@ export default {
   },
   methods: {
     createNote() {
-      console.log(this.title);
       this.$emit("create-note", {
+        id: Math.random() * 100,
         title: this.title,
         description: this.description,
         date_created: new Date(),
@@ -53,6 +66,18 @@ export default {
       this.title = "";
       this.description = "";
       this.$emit("close");
+    },
+    editNote() {
+      this.$emit("edit-note", {
+        id: this.note.id,
+        title: this.note.title,
+        description: this.note.description,
+        date_updated: new Date(),
+      });
+      this.$emit("close");
+    },
+    submitNote() {
+      this.edit ? this.editNote() : this.createNote();
     },
   },
 };

@@ -14,6 +14,8 @@
       :show="showModal"
       @close="showModal = false"
       :note="note"
+      :edit="true"
+      v-on:edit-note="edit"
     ></edit-note>
     <Teleport to="body">
       <modal :show="showDeleteModal" @close="showDeleteModal = false">
@@ -66,6 +68,9 @@ export default {
       if (day.length < 2) day = "0" + day;
 
       return [year, month, day].join("-");
+    },
+    edit(note) {
+      this.$emit("editNote", note);
     },
   },
 };
