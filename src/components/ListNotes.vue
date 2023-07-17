@@ -17,15 +17,11 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  max-width: 90%;
-  margin: 0 auto;
-  padding: 8px 0;
-}
 .notes {
   display: flex !important ;
   justify-content: space-between;
   gap: 1rem;
+  /* flex-wrap: wrap; */
 }
 @media (max-width: 768px) {
   .notes {
