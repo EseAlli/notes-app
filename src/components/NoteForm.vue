@@ -27,7 +27,13 @@
               "
             ></textarea>
 
-            <p class="characters">Characters</p>
+            <p class="characters">
+              {{
+                (edit ? note.title : title).length +
+                (edit ? note.description : description).length
+              }}
+              Characters
+            </p>
             <button v-on:click="submitNote()">Submit</button>
           </div>
         </template>

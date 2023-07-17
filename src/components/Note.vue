@@ -36,7 +36,9 @@
           <h3>{{ note.title }}</h3>
         </template>
         <template #body>
-          {{ note.description }}
+          <div class="description">
+            {{ note.description }}
+          </div>
         </template>
       </modal>
     </Teleport>
@@ -133,6 +135,10 @@ export default {
 
 .action-btn:hover {
   cursor: pointer;
+}
+
+.description {
+  word-break: break-all;
 }
 
 @media (max-width: 768px) {
