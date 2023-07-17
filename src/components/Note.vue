@@ -1,47 +1,45 @@
 <template>
   <div class="note">
-    <p class="title" @click="showContentModal = true">{{ note.title }}</p>
+    <p class="title" @click="isContentShown = true">{{ note.title }}</p>
     <p>{{ truncate(note.description) }}</p>
     <div class="flex justify-end flex-col items-end note-footer">
       <p class="date">{{ formatDate(note.date_updated) }}</p>
       <div class="flex gap-2">
-        <PencilIcon class="action-btn" @click="showModal = true" />
-        <TrashIcon class="action-btn" @click="showDeleteModal = true" />
+        <PencilIcon class="action-btn" @click="isShown = true" />
+        <TrashIcon class="action-btn" @click="isDeleteModalShown = true" />
       </div>
     </div>
 
     <edit-note
-      :show="showModal"
-      @close="showModal = false"
+      :show="isShown"
+      @close="isShown = false"
       :note="note"
       :edit="true"
       v-on:edit-note="edit"
     ></edit-note>
-    <Teleport to="body">
-      <modal :show="showDeleteModal" @close="showDeleteModal = false">
-        <template #header>
-          <h3>Delete Note</h3>
-        </template>
-        <template #body>
-          <div>
-            <button v-on:click="deleteNote(note.id)">Yes</button>
-            <button @click="showDeleteModal = false">No</button>
-          </div>
-        </template>
-      </modal>
-    </Teleport>
-    <Teleport to="body">
-      <modal :show="showContentModal" @close="showContentModal = false">
-        <template #header>
-          <h3>{{ note.title }}</h3>
-        </template>
-        <template #body>
-          <div class="description">
-            {{ note.description }}
-          </div>
-        </template>
-      </modal>
-    </Teleport>
+
+    <modal :show="isDeleteModalShown" @close="isDeleteModalShown = false">
+      <template #header>
+        <h3>Delete Note</h3>
+      </template>
+      <template #body>
+        <div>
+          <button v-on:click="deleteNote(note.id)">Yes</button>
+          <button @click="isDeleteModalShown = false">No</button>
+        </div>
+      </template>
+    </modal>
+
+    <modal :show="isContentShown" @close="isContentShown = false">
+      <template #header>
+        <h3>{{ note.title }}</h3>
+      </template>
+      <template #body>
+        <div class="description">
+          {{ note.description }}
+        </div>
+      </template>
+    </modal>
   </div>
 </template>
 
@@ -65,10 +63,26 @@ export default {
   },
   data() {
     return {
-      showModal: false,
-      showDeleteModal: false,
-      showContentModal: false,
+      isShown: false,
+      isDeleteModalShown: false,
+      isContentShown: false,
     };
+  },
+  watch: {
+    show(newVal) {
+      this.isShown = newVal;
+    },
+    showDeleteModal(newVal) {
+      this.isDeleteModalShown = newVal;
+    },
+    showContentModal(newVal) {
+      this.isContentModalShown = newVal;
+    },
+  },
+  mounted() {
+    this.isShown = this.show;
+    this.isDeleteModalShown = this.showDeleteModal;
+    this.isContentShown = this.showContentModal;
   },
   methods: {
     deleteNote(note) {

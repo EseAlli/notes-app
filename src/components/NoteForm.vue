@@ -1,44 +1,42 @@
 <template>
   <div v-if="show">
-    <Teleport to="body">
-      <modal :show="show" @close="show = false">
-        <template #header>
-          <h3>Note</h3>
-        </template>
-        <template #body>
-          <div>
-            <input
-              placeholder="Title"
-              :value="edit ? note.title : title"
-              @input="
-                edit
-                  ? (note.title = $event.target.value)
-                  : (title = $event.target.value)
-              "
-            />
-            <textarea
-              rows="10"
-              placeholder="Start typing"
-              :value="edit ? note.description : description"
-              @input="
-                edit
-                  ? (note.description = $event.target.value)
-                  : (description = $event.target.value)
-              "
-            ></textarea>
+    <modal :show="isShown" @close="hideModal">
+      <template #header>
+        <h3>Note</h3>
+      </template>
+      <template #body>
+        <div>
+          <input
+            placeholder="Title"
+            :value="edit ? note.title : title"
+            @input="
+              edit
+                ? (note.title = $event.target.value)
+                : (title = $event.target.value)
+            "
+          />
+          <textarea
+            rows="10"
+            placeholder="Start typing"
+            :value="edit ? note.description : description"
+            @input="
+              edit
+                ? (note.description = $event.target.value)
+                : (description = $event.target.value)
+            "
+          ></textarea>
 
-            <p class="characters">
-              {{
-                (edit ? note.title : title).length +
-                (edit ? note.description : description).length
-              }}
-              Characters
-            </p>
-            <button v-on:click="submitNote()">Submit</button>
-          </div>
-        </template>
-      </modal>
-    </Teleport>
+          <p class="characters">
+            {{
+              (edit ? note.title : title).length +
+              (edit ? note.description : description).length
+            }}
+            Characters
+          </p>
+          <button v-on:click="submitNote()">Submit</button>
+        </div>
+      </template>
+    </modal>
   </div>
 </template>
 
@@ -55,12 +53,24 @@ export default {
   },
   data() {
     return {
-      showModal: false,
+      isShown: false,
       title: "",
       description: "",
     };
   },
+  mounted() {
+    this.isShown = this.show;
+  },
+  watch: {
+    show(newVal) {
+      this.isShown = newVal;
+    },
+  },
   methods: {
+    hideModal() {
+      this.isShown = false;
+      this.$emit("close");
+    },
     createNote() {
       this.$emit("create-note", {
         id: Math.random() * 100,
