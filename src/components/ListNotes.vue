@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="notes">
+    <div class="notes" v-if="notes">
       <note
         v-for="note in sortedNotes"
         :key="note.id"
@@ -29,6 +29,9 @@ export default {
       const noteIndex = this.notes.indexOf(note);
       this.notes.splice(noteIndex, 1);
       alert("Note deleted!");
+
+      // Update notes in local storage
+      localStorage.setItem("notes", JSON.stringify(this.notes));
     },
     editNote(updatedNote) {
       const noteIndex = this.notes.findIndex(
@@ -37,6 +40,9 @@ export default {
       if (noteIndex !== -1) {
         this.notes.splice(noteIndex, 1, updatedNote);
         alert("Note updated!");
+
+        // Update notes in local storage
+        localStorage.setItem("notes", JSON.stringify(this.notes));
       }
     },
   },

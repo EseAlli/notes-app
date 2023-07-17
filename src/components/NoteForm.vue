@@ -72,6 +72,7 @@ export default {
         id: this.note.id,
         title: this.note.title,
         description: this.note.description,
+        date_created: this.note.date_created,
         date_updated: new Date(),
       });
       this.$emit("close");

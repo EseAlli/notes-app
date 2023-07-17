@@ -27,43 +27,28 @@ export default {
   data() {
     return {
       showModal: false,
-      notes: [
-        {
-          id: 1,
-          title: "Lunch at 12PM",
-          description: "Call Robert to remember him.",
-          date_created: new Date(),
-          date_updated: new Date(),
-        },
-        {
-          id: 2,
-          title: "Gym with Jane",
-          description: "She is needing your motivation...",
-          date_created: new Date(),
-          date_updated: new Date(),
-        },
-        {
-          id: 3,
-          title: "Call mom",
-          description: "Ask her about the cats?",
-          date_created: new Date(),
-          date_updated: new Date(),
-        },
-        {
-          id: 4,
-          title: "Call mom",
-          description: "Ask her about the cats?",
-          date_created: new Date(),
-          date_updated: new Date(),
-        },
-      ],
+      notes: [],
     };
   },
   methods: {
     createNote(note) {
       this.notes.push(note);
       alert("Note created!");
+
+      // Save notes to local storage
+      localStorage.setItem("notes", JSON.stringify(this.notes));
     },
+    fetchNotes() {
+      // Fetch notes from local storage
+      const savedNotes = localStorage.getItem("notes");
+      if (savedNotes) {
+        this.notes = JSON.parse(savedNotes);
+      }
+    },
+  },
+  created() {
+    // Fetch notes when the component is created
+    this.fetchNotes();
   },
 };
 </script>
