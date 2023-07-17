@@ -5,8 +5,8 @@
     <div class="flex justify-end flex-col items-end note-footer">
       <p class="date">{{ formatDate(note.date_created) }}</p>
       <div class="flex gap-2">
-        <p class="edit-btn" @click="showModal = true">Edit</p>
-        <p class="delete-btn" @click="showDeleteModal = true">Delete</p>
+        <PencilIcon class="action-btn" @click="showModal = true" />
+        <TrashIcon class="action-btn" @click="showDeleteModal = true" />
       </div>
     </div>
 
@@ -36,6 +36,8 @@
 <script>
 import EditNote from "./NoteForm";
 import Modal from "./Modal";
+import { PencilIcon } from "@vue-hero-icons/outline";
+import { TrashIcon } from "@vue-hero-icons/outline";
 export default {
   name: "Note",
   props: {
@@ -46,6 +48,8 @@ export default {
   components: {
     EditNote,
     Modal,
+    PencilIcon,
+    TrashIcon,
   },
   data() {
     return {
@@ -109,8 +113,11 @@ export default {
   font-weight: 600;
 }
 
-.edit-btn:hover,
-.delete-btn:hover {
+.action-btn {
+  width: 16px;
+}
+
+.action-btn:hover {
   cursor: pointer;
 }
 
