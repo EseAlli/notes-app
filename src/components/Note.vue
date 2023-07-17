@@ -4,15 +4,48 @@
     <p class="title">Lunch at 12PM</p>
     <p>Milk, Coffee, cookies</p>
     <p>17/07/2023</p>
+    <div class="flex gap-2">
+      <p class="edit-btn" id="show-modal" @click="showModal = true">Edit</p>
+      <p @click="showDeleteModal = true">Delete</p>
+    </div>
+    <edit-note
+      :show="showModal"
+      @close="showModal = false"
+      :note="note"
+    ></edit-note>
+    <Teleport to="body">
+      <modal :show="showDeleteModal" @close="showDeleteModal = false">
+        <template #header>
+          <h3>Delete Note</h3>
+        </template>
+        <template #body>
+          <div>
+            <button>Yes</button>
+            <button @click="showDeleteModal = false">No</button>
+          </div>
+        </template>
+      </modal>
+    </Teleport>
   </div>
 </template>
 
 <script>
+import EditNote from "./NoteForm";
+import Modal from "./Modal";
 export default {
   name: "Note",
   props: ["note"],
+  components: {
+    EditNote,
+    Modal,
+  },
+  data() {
+    return {
+      showModal: false,
+      showDeleteModal: false,
+    };
+  },
 };
-console.log();
 </script>
 
 <style scoped>
@@ -25,14 +58,19 @@ console.log();
   text-align: left;
 }
 
-.note:hover {
-  background: #6fa8dc;
+.title:hover {
+  color: #6fa8dc;
   cursor: pointer;
 }
 
 .title {
   font-weight: 600;
 }
+
+.edit-btn:hover {
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .note {
     width: auto;

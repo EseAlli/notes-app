@@ -17,7 +17,6 @@ export default {
   name: "App",
   components: {
     ListNotes,
-    // Modal,
     CreateNote,
   },
   data() {
@@ -75,5 +74,13 @@ button:hover {
 
 .header {
   color: #6fa8dc;
+}
+
+.flex {
+  display: flex;
+}
+
+.gap-2 {
+  gap: 0.5rem;
 }
 </style>
