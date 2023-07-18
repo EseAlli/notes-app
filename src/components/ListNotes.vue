@@ -52,11 +52,11 @@ export default {
 <style scoped>
 .notes {
   display: flex !important ;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: space-around;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .notes {
     flex-direction: column;
     gap: 0.5rem;

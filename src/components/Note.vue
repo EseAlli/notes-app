@@ -118,7 +118,7 @@ export default {
   width: 100%;
   padding: 0.75rem;
   text-align: left;
-  max-width: 300px;
+  max-width: 250px;
 }
 
 .note > p {
@@ -155,9 +155,9 @@ export default {
   word-break: break-all;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .note {
-    width: auto;
+    max-width: 100%;
     margin: 0.5rem 0;
   }
 }
