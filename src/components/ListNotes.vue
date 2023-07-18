@@ -28,6 +28,7 @@ export default {
     deleteNote(note) {
       const noteIndex = this.notes.indexOf(note);
       this.notes.splice(noteIndex, 1);
+      this.$emit("close");
       alert("Note deleted!");
 
       // Update notes in local storage
