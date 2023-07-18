@@ -5,7 +5,7 @@
         <h3>Note</h3>
       </template>
       <template #body>
-        <div>
+        <form>
           <input
             placeholder="Title"
             :value="edit ? note.title : title"
@@ -14,6 +14,7 @@
                 ? (note.title = $event.target.value)
                 : (title = $event.target.value)
             "
+            required
           />
           <textarea
             rows="10"
@@ -24,17 +25,15 @@
                 ? (note.description = $event.target.value)
                 : (description = $event.target.value)
             "
+            required
           ></textarea>
 
           <p class="characters">
-            {{
-              (edit ? note.title : title).length +
-              (edit ? note.description : description).length
-            }}
+            {{ (edit ? note.description : description).length }}
             Characters
           </p>
           <button v-on:click="submitNote()">Submit</button>
-        </div>
+        </form>
       </template>
     </modal>
   </div>
@@ -72,16 +71,20 @@ export default {
       this.$emit("close");
     },
     createNote() {
-      this.$emit("create-note", {
-        id: Math.random() * 100,
-        title: this.title,
-        description: this.description,
-        date_created: new Date(),
-        date_updated: new Date(),
-      });
-      this.title = "";
-      this.description = "";
-      this.$emit("close");
+      if (this.title !== "" || this.description !== "") {
+        this.$emit("create-note", {
+          id: Math.random() * 100,
+          title: this.title,
+          description: this.description,
+          date_created: new Date(),
+          date_updated: new Date(),
+        });
+        this.title = "";
+        this.description = "";
+        this.$emit("close");
+      } else {
+        alert("Please enter a note - Missing title or Description");
+      }
     },
     editNote() {
       this.$emit("edit-note", {
